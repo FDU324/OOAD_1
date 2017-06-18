@@ -4,7 +4,7 @@ import dao.BaseModelObject;
 import dao.IPersistenceManager;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "company")
@@ -18,7 +18,7 @@ public class Company extends BaseModelObject {
     private String businessCategory;
     private String contact;
     private String contactNumber;
-    private List<Riskcheck> riskcheckList;
+    private Set<Riskcheck> riskchecks;
 
     public static Company create(IPersistenceManager pm, String code, String name, String state, String organizationalCode,
                                  String industryGenera, String industry, String businessCategory, String contact, String contactNumber) {
@@ -119,13 +119,13 @@ public class Company extends BaseModelObject {
         this.contactNumber = contactNumber;
     }
 
+    @Access(AccessType.PROPERTY)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Riskcheck> getRiskcheckList() {
-        return riskcheckList;
+    public Set<Riskcheck> getRiskchecks() {
+        return riskchecks;
     }
 
-    public void setRiskcheckList(List<Riskcheck> riskcheckList) {
-        this.riskcheckList = riskcheckList;
+    public void setRiskchecks(Set<Riskcheck> riskchecks) {
+        this.riskchecks = riskchecks;
     }
-
 }

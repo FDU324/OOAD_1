@@ -4,7 +4,7 @@ import dao.BaseModelObject;
 import dao.IPersistenceManager;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 
 @Entity
@@ -16,10 +16,10 @@ public class Riskcheck extends BaseModelObject {
     private String deadline;
     private String finishTime;
     private String state;
-    private List<Riskcheckitem> riskcheckitems;
+    private Set<Riskcheckitem> riskcheckitems;
 
     public static Riskcheck create(IPersistenceManager pm, Company company, Riskcheckplan riskcheckplan, String startTime,
-                                   String deadline, String finishTime, String state, List<Riskcheckitem> riskcheckitems) {
+                                   String deadline, String finishTime, String state, Set<Riskcheckitem> riskcheckitems) {
         Riskcheck result = new Riskcheck();
         result.setCompany(company);
         result.setRiskcheckplan(riskcheckplan);
@@ -33,9 +33,21 @@ public class Riskcheck extends BaseModelObject {
         return result;
     }
 
-
-    @JoinColumn(name = "company_id", referencedColumnName="ID", nullable = false)
+    @Access(AccessType.PROPERTY)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "riskcheckplanid", referencedColumnName = "ID", nullable = false)
+    public Riskcheckplan getRiskcheckplan() {
+        return riskcheckplan;
+    }
+
+    public void setRiskcheckplan(Riskcheckplan riskcheckplan) {
+        this.riskcheckplan = riskcheckplan;
+    }
+
+
+    @Access(AccessType.PROPERTY)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "companyid", referencedColumnName = "ID", nullable = false)
     public Company getCompany() {
         return company;
     }
@@ -44,17 +56,6 @@ public class Riskcheck extends BaseModelObject {
         this.company = company;
     }
 
-
-    @JoinColumn(name = "riskcheckplan_id", referencedColumnName="ID", nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
-
-    public Riskcheckplan getRiskcheckplan() {
-        return riskcheckplan;
-    }
-
-    public void setRiskcheckplan(Riskcheckplan riskcheckplan) {
-        this.riskcheckplan = riskcheckplan;
-    }
 
     @Column(name = "startTime", nullable = false, length = 45)
     public String getStartTime() {
@@ -92,12 +93,13 @@ public class Riskcheck extends BaseModelObject {
         this.state = state;
     }
 
+    @Access(AccessType.PROPERTY)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Riskcheckitem> getRiskcheckitems() {
+    public Set<Riskcheckitem> getRiskcheckitems() {
         return riskcheckitems;
     }
 
-    public void setRiskcheckitems(List<Riskcheckitem> riskcheckitems) {
+    public void setRiskcheckitems(Set<Riskcheckitem> riskcheckitems) {
         this.riskcheckitems = riskcheckitems;
     }
 }

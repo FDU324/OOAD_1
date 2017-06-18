@@ -43,6 +43,7 @@ public class Riskchecktemplate extends BaseModelObject {
         this.summary = summary;
     }
 
+    @Access(AccessType.PROPERTY)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Riskchecktemplateitem> getRiskchecktemplateitems() {
         return riskchecktemplateitems;

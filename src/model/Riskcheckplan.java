@@ -30,6 +30,7 @@ public class Riskcheckplan extends BaseModelObject {
     }
 
 
+    @Access(AccessType.PROPERTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "riskchecktemplate_id", nullable = false)
     public Riskchecktemplate getRiskchecktemplate() {
