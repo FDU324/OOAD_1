@@ -15,6 +15,8 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -87,9 +89,36 @@ public class PMHibernateImpl extends HibernateDaoSupport implements IPersistence
 	}
 
 	@Override
+	public <T extends IModelObject> List<T> findByProperty(Class<T> clazz, String propertyName, String value) {
+		System.out.println("from " + clazz.getName() +" clazz where clazz."+propertyName+" like '% :"+propertyName+"%'");
+		return (List<T>)getHibernateTemplate().find("from " + clazz.getName() +" clazz where clazz."+propertyName+" like '%"+value+"%'");
+	}
+
+	@Override
+	public <T extends IModelObject> List<T> findByFussyValue(Class<T> clazz, String value) {
+		Field[] fields = clazz.getDeclaredFields();
+		StringBuffer hql = new StringBuffer();
+		hql.append("from " + clazz.getName() +" clazz where ");
+		//String sql = "from " + clazz.getName() +" clazz where ";clazz."+propertyName+" like '%"+value+"%'"
+
+		hql.append("clazz."+fields[0].getName()+" like '%"+value+"%'");
+		for (int i = 1; i<fields.length; i++) {
+			hql.append(" or clazz."+fields[i].getName()+" like '%"+value+"%'");
+		}
+		System.out.println(hql.toString());
+		return (List<T>)getHibernateTemplate().find(hql.toString());
+
+
+	}
+
+
+
+	@Override
 	public <T extends IModelObject> List<T> all(Class<T> clazz) {
 		return (List<T>)getHibernateTemplate().find("from " + clazz.getName());
 	}
+
+
 
 	@Override
 	public boolean exist(IModelObject value) {

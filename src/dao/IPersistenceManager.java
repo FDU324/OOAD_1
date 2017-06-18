@@ -10,6 +10,7 @@ import org.hibernate.Session;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Object Factory is used to process O-R mapping for model objects
@@ -85,13 +86,18 @@ public interface IPersistenceManager {
 	 */
 	void save(IModelObject obj, Serializable id);
 
+	<T extends IModelObject> List<T> findByProperty(Class<T> clazz, String propertyName, String value);
+
+	<T extends IModelObject> List<T> findByFussyValue(Class<T> clazz, String value);
+
 	/**
 	 * get all objects of specified type
 	 * 
 	 * @param clazz
 	 * @return
 	 */
-	<T extends IModelObject> Collection<T> all(Class<T> clazz);
+
+	<T extends IModelObject> List<T> all(Class<T> clazz);
 
 	/**
 	 * check if the specified object is exist
