@@ -19,7 +19,7 @@ public class Riskcheck extends BaseModelObject {
     private Set<Riskcheckitem> riskcheckitems;
 
     public static Riskcheck create(IPersistenceManager pm, Company company, Riskcheckplan riskcheckplan, String startTime,
-                                   String deadline, String finishTime, String state, Set<Riskcheckitem> riskcheckitems) {
+                                   String deadline, String finishTime, String state) {
         Riskcheck result = new Riskcheck();
         result.setCompany(company);
         result.setRiskcheckplan(riskcheckplan);
@@ -27,7 +27,6 @@ public class Riskcheck extends BaseModelObject {
         result.setDeadline(deadline);
         result.setFinishTime(finishTime);
         result.setState(state);
-        result.setRiskcheckitems(riskcheckitems);
 
         pm.save(result);
         return result;
