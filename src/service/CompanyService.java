@@ -16,7 +16,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class CompanyService {
+public class CompanyService implements ICompanyService {
     @Autowired
     IPersistenceManager persistenceManager;
 

@@ -10,25 +10,21 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class RiskchecktemplateitemService {
+public class RiskchecktemplateitemService implements IRiskchecktemplateitemService {
 
     @Autowired
     IPersistenceManager persistenceManager;
 
-    public int add(String name, String content){
+    public int add(String name, String content) {
         Riskchecktemplateitem.create(persistenceManager, name, content);
         return 0;
     }
 
     // todo
-    public Set<Riskchecktemplateitem> search(String input){
+    public Set<Riskchecktemplateitem> search(String input) {
 
         return null;
     }
-
-
-
-
 
 
 }

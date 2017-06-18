@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class RiskchecktemplateService {
+public class RiskchecktemplateService implements IRiskchecktemplateService {
     @Autowired
     IPersistenceManager persistenceManager;
 

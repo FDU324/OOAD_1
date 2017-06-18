@@ -13,7 +13,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class RiskCheckService {
+public class RiskCheckService implements IRiskCheckService {
     @Autowired
     IPersistenceManager persistenceManager;
 

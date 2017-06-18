@@ -10,8 +10,6 @@ public class testCase extends BasePersistenceTest {
     @Test
     public void deletePlanTest(){
 
-
-
         getPersistenceManager().deleteAll(Riskchecktemplateitem.class);
     }
 }

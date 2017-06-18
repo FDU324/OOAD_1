@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
-public class RiskcheckplanService {
+public class RiskcheckplanService implements IRiskcheckplanService {
     @Autowired
     IPersistenceManager persistenceManager;
 
