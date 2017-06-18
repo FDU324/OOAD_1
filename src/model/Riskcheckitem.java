@@ -22,6 +22,7 @@ public class Riskcheckitem extends BaseModelObject {
         return re;
     }
 
+    @Access(AccessType.PROPERTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "riskcheck_id", nullable = false)
     public Riskcheck getRiskcheck() {
@@ -32,6 +33,7 @@ public class Riskcheckitem extends BaseModelObject {
         this.riskcheck = riskcheck;
     }
 
+    @Access(AccessType.PROPERTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "riskchecktemplateItem_id", nullable = false)
     public Riskchecktemplateitem getRiskchecktemplateitem() {
