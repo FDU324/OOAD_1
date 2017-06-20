@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -39,10 +40,8 @@ public class RiskchecktemplateService implements IRiskchecktemplateService {
         return 0;
     }
 
-    // todo
-    public Set<Riskchecktemplate> search(String input){
-
-        return null;
+    public List<Riskchecktemplate> search(String input){
+        return persistenceManager.findByFussyValue(Riskchecktemplate.class, input);
     }
 
 }
