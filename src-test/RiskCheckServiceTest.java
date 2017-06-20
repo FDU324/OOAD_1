@@ -1,5 +1,5 @@
-import dao.BasePersistenceTest;
-import dao.IPersistenceManager;
+import common.BasePersistenceTest;
+import common.IPersistenceManager;
 import model.*;
 import model.enums.CompanyState;
 import org.junit.After;

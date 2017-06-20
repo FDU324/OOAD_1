@@ -1,5 +1,5 @@
-import dao.BasePersistenceTest;
-import dao.IPersistenceManager;
+import common.BasePersistenceTest;
+import common.IPersistenceManager;
 import model.RiskCheckTemplateItem;
 import org.junit.After;
 import org.junit.Before;

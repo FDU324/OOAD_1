@@ -1,5 +1,5 @@
-import dao.BasePersistenceTest;
-import dao.IPersistenceManager;
+import common.BasePersistenceTest;
+import common.IPersistenceManager;
 import model.RiskCheck;
 import model.RiskCheckPlan;
 import model.RiskCheckTemplate;
