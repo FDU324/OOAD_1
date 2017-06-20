@@ -1,7 +1,7 @@
 package model;
 
-import dao.BaseModelObject;
-import dao.IPersistenceManager;
+import common.BaseModelObject;
+import common.IPersistenceManager;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -44,7 +44,13 @@ public class RiskCheckTemplate extends BaseModelObject {
     }
 
     @Access(AccessType.PROPERTY)
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade =
+            {
+                    CascadeType.DETACH,
+                    CascadeType.MERGE,
+                    CascadeType.REFRESH,
+                    CascadeType.PERSIST
+            }, fetch = FetchType.LAZY)
     public Set<RiskCheckTemplateItem> getRiskCheckTemplateItems() {
         return riskCheckTemplateItems;
     }

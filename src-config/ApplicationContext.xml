@@ -62,7 +62,7 @@
 
 	</beans:bean>
 
-	<beans:bean id="DAO" class="dao.PMHibernateImpl">
+	<beans:bean id="DAO" class="common.PMHibernateImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"/>
 	</beans:bean>
 

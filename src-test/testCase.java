@@ -1,4 +1,4 @@
-import dao.BasePersistenceTest;
+import common.BasePersistenceTest;
 import model.*;
 import org.junit.After;
 import org.junit.Before;

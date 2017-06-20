@@ -1,6 +1,6 @@
 package service;
 
-import dao.IPersistenceManager;
+import common.IPersistenceManager;
 import model.Company;
 import model.RiskCheck;
 import model.enums.CompanyState;

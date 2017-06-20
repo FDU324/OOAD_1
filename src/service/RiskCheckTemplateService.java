@@ -1,6 +1,6 @@
 package service;
 
-import dao.IPersistenceManager;
+import common.IPersistenceManager;
 import model.RiskCheckTemplate;
 import model.RiskCheckTemplateItem;
 import org.springframework.beans.factory.annotation.Autowired;

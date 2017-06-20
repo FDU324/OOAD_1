@@ -2,7 +2,7 @@
  * Copyright 2006 Centenum Software Solutions, Inc. All rights reserved.
  * CENTENUM PROPRIETARY/CONFIDENTIAL. 
  */
-package dao;
+package common;
 
 
 /**

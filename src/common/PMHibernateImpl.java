@@ -2,7 +2,7 @@
  * Copyright 2006 Centenum Software Solutions, Inc. All rights reserved.
  * CENTENUM PROPRIETARY/CONFIDENTIAL. 
  */
-package dao;
+package common;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -16,8 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
