@@ -5,6 +5,7 @@ import dao.IPersistenceManager;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "riskchecktemplate")
@@ -12,10 +13,10 @@ public class Riskchecktemplate extends BaseModelObject {
 
     private String name;
     private String summary;
-    private List<Riskchecktemplateitem> riskchecktemplateitems;
+    private Set<Riskchecktemplateitem> riskchecktemplateitems;
 
 
-    public static Riskchecktemplate create(IPersistenceManager pm, String name, String summary, List<Riskchecktemplateitem> riskchecktemplateitems) {
+    public static Riskchecktemplate create(IPersistenceManager pm, String name, String summary, Set<Riskchecktemplateitem> riskchecktemplateitems) {
         Riskchecktemplate re = new Riskchecktemplate();
         re.setName(name);
         re.setSummary(summary);
@@ -45,11 +46,11 @@ public class Riskchecktemplate extends BaseModelObject {
 
     @Access(AccessType.PROPERTY)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public List<Riskchecktemplateitem> getRiskchecktemplateitems() {
+    public Set<Riskchecktemplateitem> getRiskchecktemplateitems() {
         return riskchecktemplateitems;
     }
 
-    public void setRiskchecktemplateitems(List<Riskchecktemplateitem> riskchecktemplateitems) {
+    public void setRiskchecktemplateitems(Set<Riskchecktemplateitem> riskchecktemplateitems) {
         this.riskchecktemplateitems = riskchecktemplateitems;
     }
 
