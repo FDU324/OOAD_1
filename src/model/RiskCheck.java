@@ -2,6 +2,7 @@ package model;
 
 import dao.BaseModelObject;
 import dao.IPersistenceManager;
+import model.enums.RiskCheckState;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -9,20 +10,20 @@ import java.util.Set;
 
 @Entity
 @Table(name = "riskcheck")
-public class Riskcheck extends BaseModelObject {
+public class RiskCheck extends BaseModelObject {
     private Company company;
-    private Riskcheckplan riskcheckplan;
+    private RiskCheckPlan riskCheckPlan;
     private String startTime;
     private String deadline;
     private String finishTime;
-    private String state;
-    private Set<Riskcheckitem> riskcheckitems;
+    private RiskCheckState state;
+    private Set<RiskCheckItem> riskCheckItems;
 
-    public static Riskcheck create(IPersistenceManager pm, Company company, Riskcheckplan riskcheckplan, String startTime,
-                                   String deadline, String finishTime, String state) {
-        Riskcheck result = new Riskcheck();
+    public static RiskCheck create(IPersistenceManager pm, Company company, RiskCheckPlan riskCheckPlan, String startTime,
+                                   String deadline, String finishTime, RiskCheckState state) {
+        RiskCheck result = new RiskCheck();
         result.setCompany(company);
-        result.setRiskcheckplan(riskcheckplan);
+        result.setRiskCheckPlan(riskCheckPlan);
         result.setStartTime(startTime);
         result.setDeadline(deadline);
         result.setFinishTime(finishTime);
@@ -35,12 +36,12 @@ public class Riskcheck extends BaseModelObject {
     @Access(AccessType.PROPERTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "riskcheckplanid", referencedColumnName = "ID", nullable = false)
-    public Riskcheckplan getRiskcheckplan() {
-        return riskcheckplan;
+    public RiskCheckPlan getRiskCheckPlan() {
+        return riskCheckPlan;
     }
 
-    public void setRiskcheckplan(Riskcheckplan riskcheckplan) {
-        this.riskcheckplan = riskcheckplan;
+    public void setRiskCheckPlan(RiskCheckPlan riskCheckPlan) {
+        this.riskCheckPlan = riskCheckPlan;
     }
 
 
@@ -84,21 +85,22 @@ public class Riskcheck extends BaseModelObject {
     }
 
     @Column(name = "state", nullable = false, length = 45)
-    public String getState() {
+    @Convert(converter = RiskCheckState.class)
+    public RiskCheckState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(RiskCheckState state) {
         this.state = state;
     }
 
     @Access(AccessType.PROPERTY)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<Riskcheckitem> getRiskcheckitems() {
-        return riskcheckitems;
+    public Set<RiskCheckItem> getRiskCheckItems() {
+        return riskCheckItems;
     }
 
-    public void setRiskcheckitems(Set<Riskcheckitem> riskcheckitems) {
-        this.riskcheckitems = riskcheckitems;
+    public void setRiskCheckItems(Set<RiskCheckItem> riskCheckItems) {
+        this.riskCheckItems = riskCheckItems;
     }
 }

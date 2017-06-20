@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class RiskcheckplanServiceTest {
+public class RiskCheckPlanServiceTest {
     @Before
     public void setUp() throws Exception {
 

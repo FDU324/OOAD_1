@@ -7,14 +7,14 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "riskcheckplan")
-public class Riskcheckplan extends BaseModelObject {
+public class RiskCheckPlan extends BaseModelObject {
     private String name;
-    private Riskchecktemplate riskchecktemplate;
+    private RiskCheckTemplate riskCheckTemplate;
 
-    public static Riskcheckplan create(IPersistenceManager pm, String name, Riskchecktemplate riskchecktemplate) {
-        Riskcheckplan re = new Riskcheckplan();
+    public static RiskCheckPlan create(IPersistenceManager pm, String name, RiskCheckTemplate riskCheckTemplate) {
+        RiskCheckPlan re = new RiskCheckPlan();
         re.setName(name);
-        re.setRiskchecktemplate(riskchecktemplate);
+        re.setRiskCheckTemplate(riskCheckTemplate);
 
         pm.save(re);
         return re;
@@ -33,11 +33,11 @@ public class Riskcheckplan extends BaseModelObject {
     @Access(AccessType.PROPERTY)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "riskchecktemplate_id", nullable = false)
-    public Riskchecktemplate getRiskchecktemplate() {
-        return riskchecktemplate;
+    public RiskCheckTemplate getRiskCheckTemplate() {
+        return riskCheckTemplate;
     }
 
-    public void setRiskchecktemplate(Riskchecktemplate riskchecktemplate) {
-        this.riskchecktemplate = riskchecktemplate;
+    public void setRiskCheckTemplate(RiskCheckTemplate riskCheckTemplate) {
+        this.riskCheckTemplate = riskCheckTemplate;
     }
 }

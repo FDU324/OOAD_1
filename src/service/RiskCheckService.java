@@ -2,6 +2,7 @@ package service;
 
 import dao.IPersistenceManager;
 import model.*;
+import model.enums.RiskCheckState;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,21 +19,27 @@ public class RiskCheckService implements IRiskCheckService {
     IPersistenceManager persistenceManager;
 
     // 分配一次任务
-    public int add(Company company, Riskcheckplan riskcheckplan, String deadline, Set<Riskchecktemplateitem> riskchecktemplateitems) {
+    @Override
+    public RiskCheck add(Company company, RiskCheckPlan riskCheckPlan, String deadline, Set<RiskCheckTemplateItem> riskCheckTemplateItems) {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddm HH:m:ss");
         String startTime = formatter.format(new Date());
-        Riskcheck riskcheck = Riskcheck.create(persistenceManager, company, riskcheckplan, startTime, deadline, "", RiskcheckState.UNDERGOING.toString());
+        RiskCheck riskCheck = RiskCheck.create(persistenceManager, company, riskCheckPlan, startTime, deadline, "", RiskCheckState.UNDERGOING);
 
-        Set<Riskcheckitem> riskcheckitems = new HashSet<Riskcheckitem>();
-        for (Riskchecktemplateitem riskchecktemplateitem : riskchecktemplateitems) {
-            Riskcheckitem riskcheckitem = Riskcheckitem.create(persistenceManager, riskcheck, riskchecktemplateitem, "");
-            riskcheckitems.add(riskcheckitem);
+        Set<RiskCheckItem> riskCheckItems = new HashSet<RiskCheckItem>();
+        for (RiskCheckTemplateItem riskCheckTemplateItem : riskCheckTemplateItems) {
+            RiskCheckItem riskCheckItem = RiskCheckItem.create(persistenceManager, riskCheck, riskCheckTemplateItem, "");
+            riskCheckItems.add(riskCheckItem);
         }
 
-        riskcheck.setRiskcheckitems(riskcheckitems);
-        persistenceManager.save(riskcheck);
+        riskCheck.setRiskCheckItems(riskCheckItems);
+        persistenceManager.save(riskCheck);
 
-        return 0;
+        return riskCheck;
+    }
+
+    @Override
+    public void delete(RiskCheckPlan riskCheckPlan) {
+        persistenceManager.delete(riskCheckPlan);
     }
 
 }

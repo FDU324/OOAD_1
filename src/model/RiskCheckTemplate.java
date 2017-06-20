@@ -4,23 +4,22 @@ import dao.BaseModelObject;
 import dao.IPersistenceManager;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "riskchecktemplate")
-public class Riskchecktemplate extends BaseModelObject {
+public class RiskCheckTemplate extends BaseModelObject {
 
     private String name;
     private String summary;
-    private Set<Riskchecktemplateitem> riskchecktemplateitems;
+    private Set<RiskCheckTemplateItem> riskCheckTemplateItems;
 
 
-    public static Riskchecktemplate create(IPersistenceManager pm, String name, String summary, Set<Riskchecktemplateitem> riskchecktemplateitems) {
-        Riskchecktemplate re = new Riskchecktemplate();
+    public static RiskCheckTemplate create(IPersistenceManager pm, String name, String summary, Set<RiskCheckTemplateItem> riskCheckTemplateItems) {
+        RiskCheckTemplate re = new RiskCheckTemplate();
         re.setName(name);
         re.setSummary(summary);
-        re.setRiskchecktemplateitems(riskchecktemplateitems);
+        re.setRiskCheckTemplateItems(riskCheckTemplateItems);
 
         pm.save(re);
         return re;
@@ -46,12 +45,12 @@ public class Riskchecktemplate extends BaseModelObject {
 
     @Access(AccessType.PROPERTY)
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<Riskchecktemplateitem> getRiskchecktemplateitems() {
-        return riskchecktemplateitems;
+    public Set<RiskCheckTemplateItem> getRiskCheckTemplateItems() {
+        return riskCheckTemplateItems;
     }
 
-    public void setRiskchecktemplateitems(Set<Riskchecktemplateitem> riskchecktemplateitems) {
-        this.riskchecktemplateitems = riskchecktemplateitems;
+    public void setRiskCheckTemplateItems(Set<RiskCheckTemplateItem> riskCheckTemplateItems) {
+        this.riskCheckTemplateItems = riskCheckTemplateItems;
     }
 
 }
