@@ -9,12 +9,12 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "riskchecktemplateitem")
-public class Riskchecktemplateitem extends BaseModelObject {
+public class RiskCheckTemplateItem extends BaseModelObject {
     private String name;
     private String content;
 
-    public static Riskchecktemplateitem create(IPersistenceManager pm, String name, String content) {
-        Riskchecktemplateitem re = new Riskchecktemplateitem();
+    public static RiskCheckTemplateItem create(IPersistenceManager pm, String name, String content) {
+        RiskCheckTemplateItem re = new RiskCheckTemplateItem();
         re.setName(name);
         re.setContent(content);
 

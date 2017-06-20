@@ -91,7 +91,7 @@ public class PMHibernateImpl extends HibernateDaoSupport implements IPersistence
 	@Override
 	public <T extends IModelObject> List<T> findByProperty(Class<T> clazz, String propertyName, String value) {
 		System.out.println("from " + clazz.getName() +" clazz where clazz."+propertyName+" like '% :"+propertyName+"%'");
-		return (List<T>)getHibernateTemplate().find("from " + clazz.getName() +" clazz where clazz."+propertyName+"="+value);
+		return (List<T>)getHibernateTemplate().find("from " + clazz.getName() +" clazz where clazz."+propertyName+" like '%"+value+"%'");
 	}
 
 	@Override
@@ -101,11 +101,14 @@ public class PMHibernateImpl extends HibernateDaoSupport implements IPersistence
 		hql.append("from " + clazz.getName() +" clazz where ");
 		//String sql = "from " + clazz.getName() +" clazz where ";clazz."+propertyName+" like '%"+value+"%'"
 
-		hql.append("clazz."+fields[0].getName()+" like '%"+value+"%'");
+
+		if(fields[0].getType().getSimpleName().equals("String"))
+			hql.append("clazz."+fields[0].getName()+" like '%"+value+"%'");
 		for (int i = 1; i<fields.length; i++) {
-			hql.append(" or clazz."+fields[i].getName()+" like '%"+value+"%'");
+
+			if(fields[i].getType().getSimpleName().equals("String"))
+				hql.append(" or clazz."+fields[i].getName()+" like '%"+value+"%'");
 		}
-		System.out.println(hql.toString());
 		return (List<T>)getHibernateTemplate().find(hql.toString());
 
 

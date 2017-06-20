@@ -2,9 +2,10 @@ package service;
 
 import dao.IPersistenceManager;
 import model.Company;
-import model.Riskcheck;
-import model.RiskcheckState;
-import model.Riskcheckitem;
+import model.RiskCheck;
+import model.enums.CompanyState;
+import model.enums.RiskCheckState;
+import model.RiskCheckItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,40 +21,69 @@ public class CompanyService implements ICompanyService {
     @Autowired
     IPersistenceManager persistenceManager;
 
-    public void finishOneCheckRiskItem(Riskcheckitem riskcheckitem, String result) {
-        riskcheckitem.setResult(result);
-        persistenceManager.save(riskcheckitem);
+    @Override
+    public void finishOneCheckRiskItem(RiskCheckItem riskCheckItem, String result) {
+        riskCheckItem.setResult(result);
+        persistenceManager.save(riskCheckItem);
 
         boolean finished = true;
-        Riskcheck riskcheck = riskcheckitem.getRiskcheck();
-        for (Riskcheckitem riskcheckitem1 : riskcheck.getRiskcheckitems()) {
-            if (riskcheckitem1.getResult().equals("")) {
+        RiskCheck riskCheck = riskCheckItem.getRiskCheck();
+        for (RiskCheckItem riskCheckItem1 : riskCheck.getRiskCheckItems()) {
+            if (riskCheckItem1.getResult().equals("")) {
                 finished = false;
                 break;
             }
         }
 
         if (finished) {
-            riskcheck.setState(RiskcheckState.FINISHED.toString());
+            riskCheck.setState(RiskCheckState.FINISHED);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-ddm HH:m:ss");
-            riskcheck.setFinishTime(formatter.format(new Date()));
-            persistenceManager.save(riskcheck);
+            riskCheck.setFinishTime(formatter.format(new Date()));
+            persistenceManager.save(riskCheck);
         }
+
     }
 
-    public Set<Riskcheckitem> getAllRiskcheckitem(Company company){
-        Set<Riskcheckitem> re = new HashSet<Riskcheckitem>();
+    @Override
+    public Company add(String code, String name, CompanyState state, String organizationalCode,
+                       String industryGenera, String industry, String businessCategory, String contact, String contactNumber) {
+        return Company.create(persistenceManager, code, name, state, organizationalCode, industryGenera, industry, businessCategory, contact, contactNumber);
+    }
 
-        for (Riskcheck riskcheck:company.getRiskchecks()) {
-            for (Riskcheckitem riskcheckitem:riskcheck.getRiskcheckitems()) {
-                re.add(riskcheckitem);
+    @Override
+    public void delete(Company company) {
+        persistenceManager.delete(company);
+    }
+
+    @Override
+    public Company edit(Company company, String code, String name, CompanyState state, String organizationalCode, String industryGenera, String industry, String businessCategory, String contact, String contactNumber) {
+        company.setCode(code);
+        company.setName(name);
+        company.setState(state);
+        company.setOrganizationalCode(organizationalCode);
+        company.setIndustryGenera(industryGenera);
+        company.setIndustry(industry);
+        company.setBusinessCategory(businessCategory);
+        company.setContact(contact);
+        company.setContactNumber(contactNumber);
+        persistenceManager.save(company);
+
+        return company;
+    }
+
+    @Override
+    public Set<RiskCheckItem> getAllRiskCheckItem(Company company) {
+        Set<RiskCheckItem> re = new HashSet<RiskCheckItem>();
+
+        for (RiskCheck riskCheck : company.getRiskChecks()) {
+            for (RiskCheckItem riskCheckItem : riskCheck.getRiskCheckItems()) {
+                System.out.println(riskCheckItem.getId()+": "+riskCheckItem.getResult());
+                re.add(riskCheckItem);
             }
         }
 
         return re;
     }
-
-
 
 
 }

@@ -17,10 +17,10 @@ import org.apache.logging.log4j.Logger;
 @ContextConfiguration(locations = {"classpath:ApplicationContext.xml"})
 @Rollback(value = false)
 @Transactional(transactionManager = "transactionManager")
-public class BasePersistenceTest extends TestCase implements
+public abstract class BasePersistenceTest extends TestCase implements
         ApplicationContextAware {
 	protected ApplicationContext appContext;
-	private static final Logger logger = LogManager.getLogger(BasePersistenceTest.class);
+
 
 	@Override
 	public void setApplicationContext(ApplicationContext context)
@@ -33,8 +33,6 @@ public class BasePersistenceTest extends TestCase implements
 		return (IPersistenceManager) appContext.getBean("DAO");
 	}
 	
-	protected void assertObjectPersisted(IModelObject object) {
-		assertNotNull(object.getId());
-	}
+
 
 }

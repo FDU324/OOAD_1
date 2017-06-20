@@ -1,11 +1,14 @@
 package service;
 
 import model.Company;
-import model.Riskcheckplan;
-import model.Riskchecktemplateitem;
+import model.RiskCheck;
+import model.RiskCheckPlan;
+import model.RiskCheckTemplateItem;
 
 import java.util.Set;
 
 public interface IRiskCheckService {
-    int add(Company company, Riskcheckplan riskcheckplan, String deadline, Set<Riskchecktemplateitem> riskchecktemplateitems);
+    RiskCheck add(Company company, RiskCheckPlan riskCheckPlan, String deadline);
+
+    void delete(RiskCheckPlan riskCheckPlan);
 }

@@ -34,12 +34,10 @@
 
 		<beans:property name="packagesToScan">
 			<beans:list>
-
 				<beans:value>model</beans:value>
-
 			</beans:list>
-
 		</beans:property>
+
 		<beans:property name="hibernateProperties">
 			<beans:props>
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
@@ -65,6 +63,14 @@
 	<beans:bean id="DAO" class="dao.PMHibernateImpl">
 		<beans:property name="sessionFactory" ref="sessionFactory"/>
 	</beans:bean>
+
+	<beans:bean id="riskCheckTemplateItemService" class="service.RiskCheckTemplateItemService"/>
+	<beans:bean id="companyService" class="service.CompanyService"/>
+	<beans:bean id="riskCheckService" class="service.RiskCheckService"/>
+	<beans:bean id="riskCheckTemplateService" class="service.RiskCheckTemplateService"/>
+	<beans:bean id="riskCheckPlanService" class="service.RiskCheckPlanService"/>
+
+
 
 
 	<tx:annotation-driven transaction-manager="transactionManager"/>

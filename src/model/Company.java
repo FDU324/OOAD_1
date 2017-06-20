@@ -2,9 +2,11 @@ package model;
 
 import dao.BaseModelObject;
 import dao.IPersistenceManager;
-import model.Type.CompanyState;
+import model.enums.CompanyState;
+import model.enums.CompanyStateConverter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,27 +14,28 @@ import java.util.Set;
 public class Company extends BaseModelObject {
     private String code;
     private String name;
-    private String state;
+    private CompanyState state;
     private String organizationalCode;
     private String industryGenera;
     private String industry;
     private String businessCategory;
     private String contact;
     private String contactNumber;
-    private Set<Riskcheck> riskchecks;
+    private Set<RiskCheck> riskChecks;
 
     public static Company create(IPersistenceManager pm, String code, String name, CompanyState state, String organizationalCode,
                                  String industryGenera, String industry, String businessCategory, String contact, String contactNumber) {
         Company result = new Company();
         result.setCode(code);
         result.setName(name);
-        result.setState(state.getName());
+        result.setState(state);
         result.setOrganizationalCode(organizationalCode);
         result.setIndustryGenera(industryGenera);
         result.setIndustry(industry);
         result.setBusinessCategory(businessCategory);
         result.setContact(contact);
         result.setContactNumber(contactNumber);
+        result.setRiskChecks(new HashSet<RiskCheck>());
 
         pm.save(result);
         return result;
@@ -58,11 +61,12 @@ public class Company extends BaseModelObject {
     }
 
     @Column(name = "state", nullable = false, length = 45)
-    public String getState() {
+    @Convert(converter = CompanyStateConverter.class)
+    public CompanyState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(CompanyState state) {
         this.state = state;
     }
 
@@ -122,11 +126,11 @@ public class Company extends BaseModelObject {
 
     @Access(AccessType.PROPERTY)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    public Set<Riskcheck> getRiskchecks() {
-        return riskchecks;
+    public Set<RiskCheck> getRiskChecks() {
+        return riskChecks;
     }
 
-    public void setRiskchecks(Set<Riskcheck> riskchecks) {
-        this.riskchecks = riskchecks;
+    public void setRiskChecks(Set<RiskCheck> riskChecks) {
+        this.riskChecks = riskChecks;
     }
 }

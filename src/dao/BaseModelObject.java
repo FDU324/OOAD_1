@@ -2,6 +2,7 @@ package dao;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.junit.Test;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -48,6 +49,7 @@ public abstract class BaseModelObject implements IModelObject,
 	public int hashCode() {
 		return new HashCodeBuilder().append(getId()).toHashCode();
 	}
-	
+
+
 
 }
