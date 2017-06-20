@@ -1,6 +1,6 @@
 package service;
 
-import dao.IPersistenceManager;
+import common.IPersistenceManager;
 import model.RiskCheckTemplateItem;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

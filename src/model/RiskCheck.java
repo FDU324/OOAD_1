@@ -1,7 +1,7 @@
 package model;
 
-import dao.BaseModelObject;
-import dao.IPersistenceManager;
+import common.BaseModelObject;
+import common.IPersistenceManager;
 import model.enums.RiskCheckState;
 
 import javax.persistence.*;
