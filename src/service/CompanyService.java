@@ -20,7 +20,7 @@ public class CompanyService implements ICompanyService {
     @Autowired
     IPersistenceManager persistenceManager;
 
-    public int finishOneCheckRiskItem(Riskcheckitem riskcheckitem, String result) {
+    public void finishOneCheckRiskItem(Riskcheckitem riskcheckitem, String result) {
         riskcheckitem.setResult(result);
         persistenceManager.save(riskcheckitem);
 
@@ -39,8 +39,6 @@ public class CompanyService implements ICompanyService {
             riskcheck.setFinishTime(formatter.format(new Date()));
             persistenceManager.save(riskcheck);
         }
-
-        return 0;
     }
 
     public Set<Riskcheckitem> getAllRiskcheckitem(Company company){

@@ -2,6 +2,7 @@ package model;
 
 import dao.BaseModelObject;
 import dao.IPersistenceManager;
+import model.Type.CompanyState;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -20,12 +21,12 @@ public class Company extends BaseModelObject {
     private String contactNumber;
     private Set<Riskcheck> riskchecks;
 
-    public static Company create(IPersistenceManager pm, String code, String name, String state, String organizationalCode,
+    public static Company create(IPersistenceManager pm, String code, String name, CompanyState state, String organizationalCode,
                                  String industryGenera, String industry, String businessCategory, String contact, String contactNumber) {
         Company result = new Company();
         result.setCode(code);
         result.setName(name);
-        result.setState(state);
+        result.setState(state.getName());
         result.setOrganizationalCode(organizationalCode);
         result.setIndustryGenera(industryGenera);
         result.setIndustry(industry);

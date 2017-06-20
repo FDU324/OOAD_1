@@ -91,7 +91,7 @@ public class PMHibernateImpl extends HibernateDaoSupport implements IPersistence
 	@Override
 	public <T extends IModelObject> List<T> findByProperty(Class<T> clazz, String propertyName, String value) {
 		System.out.println("from " + clazz.getName() +" clazz where clazz."+propertyName+" like '% :"+propertyName+"%'");
-		return (List<T>)getHibernateTemplate().find("from " + clazz.getName() +" clazz where clazz."+propertyName+" like '%"+value+"%'");
+		return (List<T>)getHibernateTemplate().find("from " + clazz.getName() +" clazz where clazz."+propertyName+"="+value);
 	}
 
 	@Override
